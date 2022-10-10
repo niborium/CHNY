@@ -9,28 +9,7 @@ export const ApiContextProvider = (props) => {
     const [buildingId, setBuildingId] = useState([]);
     const [deviceData, setDeviceData] = useState([]);
     // alarmData with test alarm. Remove when alarmData sets by TelemetryAndAlarm component
-    const [alarmData, setAlarmData] = useStorageState(localStorage, 'alarmData', [
-        // {
-        //     alarm: true,
-        //     deviceId: '76db7f2f-43bc-497d-8a3a-0b52b297cb3e',
-        //     timeStamp: new Date().toLocaleDateString()
-        // },
-        // {
-        //     alarm: true,
-        //     deviceId: 'e1e3bb3e-15c5-42a4-ba79-4cfd48c77189',
-        //     timeStamp: new Date().toLocaleDateString()
-        // },
-        // {
-        //     alarm: true,
-        //     deviceId: '5010e98d-9319-44d5-8bb4-5c1fde691581',
-        //     timeStamp: new Date().toLocaleDateString()
-        // },
-        // {
-        //     alarm: true,
-        //     deviceId: '89428fa3-8218-402f-a6f5-e7082c311b74',
-        //     timeStamp: new Date().toLocaleDateString()
-        // }
-    ]);
+    const [alarmData, setAlarmData] = useStorageState(localStorage, 'alarmData', []);
     const [cardData, setCardData] = useState([]);
     const [units, setUnits] = useState([]);
     const [valueName, setValueName] = useState(
@@ -91,7 +70,9 @@ export const ApiContextProvider = (props) => {
                 let textArray = obj.name.split(' ');
                 textArray = textArray.splice(1);
                 let newText = textArray.join(' ');
-                obj.name = newText;
+                if(textArray.length === 3) {
+                    obj.name = newText;
+                }
                 return obj;
             });
             // Unit for each sensor sets to key unit
@@ -124,6 +105,10 @@ export const ApiContextProvider = (props) => {
             setCardData(newCardData);
         }
     }, [deviceData, alarmData]);
+
+    const restoreAlarmGlobal = () => {
+        
+    }
 
     // *** Use for develop ***
     // useEffect(() => {

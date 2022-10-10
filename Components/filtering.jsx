@@ -47,7 +47,7 @@ export const Filtering = () => {
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => alarmedSensors()}>
-              Larmade sensorer
+              Larmande sensorer
             </Dropdown.Item>
             <Dropdown.Item onClick={() => allSensors()}>
               Alla sensorer
@@ -71,7 +71,7 @@ export const Filtering = () => {
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => alarmedSensors()}>
-              Larmade sensorer
+              Larmande sensorer
             </Dropdown.Item>
             <Dropdown.Item onClick={() => allSensors()}>
               Alla sensorer
@@ -95,7 +95,7 @@ export const Filtering = () => {
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => alarmedSensors()}>
-              Larmade sensorer
+              Larmande sensorer
             </Dropdown.Item>
             <Dropdown.Item onClick={() => allSensors()}>
               Alla sensorer

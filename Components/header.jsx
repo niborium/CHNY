@@ -57,6 +57,7 @@ export const Header = () => {
                 alt='Logotyp för Concorde Hotel New York'
                 style={Header.image}
               />
+              {/* Kommentera bort denna för att få fram en knapp som skickar larm. För utveckling */}
               {/* <button style={{marginTop: '20rem'}} onClick={sendAlarm} >Send alarm</button> */}
             </div>
             <LogoutBtn />

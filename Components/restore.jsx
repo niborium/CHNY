@@ -44,9 +44,6 @@ export const Restoredevice = (props) => {
   function handleReset(deviceId) {
     //POST request - singalr för att neutralisera larmet.
     restoreAlarm(deviceId, accounts[0].username);
-    //Filter för att ta bort idt från alarmData (api-context)
-    remainingAlarm = alarmData.filter((data) => data.deviceId != `${deviceId}`);
-    setAlarmData(remainingAlarm);
   }
 
   return (

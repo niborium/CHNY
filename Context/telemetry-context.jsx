@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import axios from 'axios';
 import { useMsal, useIsAuthenticated } from '@azure/msal-react';
+import useApi from './api-context';
+import { NotificationManager } from 'react-notifications';
 
 const TelemetryContext = createContext();
 
 export const TelemetryContextProvider = (props) => {
+  const { alarmData, setAlarmData, cardData } = useApi();
   const [update, setUpdate] = useState(false); // If context need force update
   const [telemetryData, setTelemetryData] = useState([]); // Object with updated telemetry data
   const [telemetry, setTelemetry] = useState(); // Recieved telemetry data with every heartbeat
+  const [alarmNeutralized, setAlarmNeutralized] = useState([]); // Recieve alarmNeutralized data from SignalR
   const signalR = require('@microsoft/signalr');
   const { accounts } = useMsal();
   const isAuthenticated = useIsAuthenticated();
@@ -36,6 +40,31 @@ export const TelemetryContextProvider = (props) => {
     }
   }, [telemetry]);
 
+  // Restore alarms globaly by signalR alarmNeutralized
+  useEffect(() => {
+    if (alarmNeutralized.length > 0) {
+      const alarmNeutralizedId = alarmNeutralized
+        .split(' ')
+        .slice(6, 7);
+      const alarmNeutralizedBy = alarmNeutralized
+        .split(' ')
+        .slice(8, 9);
+
+      // Filter för att ta bort alarmid från alarmData
+      const remainingAlarm = alarmData.filter((alarm) => alarm.deviceId != alarmNeutralizedId);
+      setAlarmData(remainingAlarm);
+
+      // Hämtar sensorn för larmet
+      const alarmedSensorData = cardData.filter((sensor) => sensor.id == alarmNeutralizedId);
+
+      // Skickar meddelande om att alarm är neutraliserat
+      NotificationManager.success(`${alarmedSensorData[0].measurementName}alarm har återställts i ${alarmedSensorData[0].name} av ${alarmNeutralizedBy}`);
+
+      // Tömmer alarmNeutralized
+      setAlarmNeutralized([]);
+    }
+  }, [alarmNeutralized])
+
   useEffect(() => {
     // Handshake with AD to get SignalR token and url
     if (isAuthenticated) {
@@ -62,7 +91,7 @@ export const TelemetryContextProvider = (props) => {
         });
         // Logs to the client when the alarm has been neutralized
         connection.on('alarmNeutralized', (neutral) => {
-          console.log(neutral);
+          setAlarmNeutralized(neutral);
         });
         // Starts the connection and tries again after five seconds if not connected first time
         async function start() {

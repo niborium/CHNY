@@ -88,7 +88,7 @@ export const Sorting = () => {
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => alarmedFirst()}>
-              Larmade först
+              Larmande först
             </Dropdown.Item>
             <Dropdown.Item onClick={() => alphabeticalOrder()}>
               Namn A-Ö
@@ -115,7 +115,7 @@ export const Sorting = () => {
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => alarmedFirst()}>
-              Larmade först
+              Larmande först
             </Dropdown.Item>
             <Dropdown.Item onClick={() => alphabeticalOrder()}>
               Namn A-Ö

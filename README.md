@@ -47,6 +47,18 @@ Använder React-Bootstrap för styling (Cards, modals, responsivitet m.m.)
 
 Installerad som paket (npm)
 
+### [React-Notifications](https://www.npmjs.com/package/react-notifications)
+
+Notifierings komponent för React, används för när vi återställer larm och notifierar samtliga.
+
+Installerad som paket (npm)
+
+### [React-storage-hooks](https://www.npmjs.com/package/react-storage-hooks)
+
+Anpassade React-hooks för att hålla applikationsstatus synkroniserad med localStorage eller sessionStorage.
+
+Installerad som paket (npm)
+
 ### [React-Responsive](https://www.npmjs.com/package/react-responsive)
 
 Använder React-Responsive för media queries för enheterna: desktop, tablet och mobile för conditional rendering.
